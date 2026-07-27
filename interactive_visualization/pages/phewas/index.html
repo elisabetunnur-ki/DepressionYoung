@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hazard ratios for subsequent medical conditions following depression diagnosed at ages 10 to 40 years." />
+  <title>Interactive PheWAS Results</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <span class="eyebrow">Depression disease-network study</span>
+    <h1>Interactive PheWAS Results</h1>
+    <p>Hazard ratios for subsequent medical conditions following depression diagnosed at ages 10 to 40 years.</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Project navigation">
+    <a href="../../index.html">Home</a>
+    <a href="../../pages/phewas/index.html" class="active">PheWAS</a>
+    <a href="../../pages/comorbidity-network/index.html">Comorbidity Network</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/3d-disease-network/index.html">3D Disease Network</a>
+  </nav>
+
+
+  <main class="narrow-main">
+    <section class="section-panel">
+      <h2>Phenome-wide Association Study Results</h2>
+      <p>
+        Cox regression was used to estimate associations between a prior depression diagnosis and subsequent
+        medical conditions. Statistical highlighting follows the manuscript definition of a positive association
+        with HR &gt; 1 and FDR-adjusted q-value &lt; 0.05.
+      </p>
+      <div class="metric-grid">
+        <div class="metric-card"><strong>6</strong><span>Analysis strata</span></div>
+        <div class="metric-card"><strong>1,085</strong><span>Displayed HR estimates</span></div>
+        <div class="metric-card"><strong>91–187</strong><span>Positive associations per analysis</span></div>
+        <div class="metric-card"><strong>0.05</strong><span>FDR q-value threshold</span></div>
+      </div>
+    </section>
+    <section class="card-grid" aria-label="PheWAS visualizations">
+      <article class="card">
+        <h2>Scatter Plot</h2>
+        <p>View all available HR estimates for one analysis, grouped by physiological system and ordered by Phecode.</p>
+        <a class="button secondary" href="./scatter.html">Open Scatter Plot</a>
+      </article>
+      <article class="card">
+        <h2>Forest Plot</h2>
+        <p>Select up to 20 conditions and compare hazard ratios and 95% confidence intervals across any combination of analyses.</p>
+        <a class="button secondary" href="./forest.html">Open Forest Plot</a>
+      </article>
+    </section>
+    <div class="interpretation-callout">
+      Population-based analyses compare individuals with depression with matched unexposed individuals. Sibling-based PheWAS analyses compare individuals with depression with unaffected full siblings.
+    </div>
+  </main>
+
+  <footer>
+    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+  </footer>
+
+</body>
+</html>

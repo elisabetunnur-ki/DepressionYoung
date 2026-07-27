@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Integrated visualization of temporal and non-temporal associations following depression." />
+  <title>Interactive 3D Disease Network Explorer</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <span class="eyebrow">Depression disease-network study</span>
+    <h1>Interactive 3D Disease Network Explorer</h1>
+    <p>Integrated visualization of temporal and non-temporal associations following depression.</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Project navigation">
+    <a href="../../index.html">Home</a>
+    <a href="../../pages/phewas/index.html">PheWAS</a>
+    <a href="../../pages/comorbidity-network/index.html">Comorbidity Network</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/3d-disease-network/index.html" class="active">3D Disease Network</a>
+  </nav>
+
+
+  <main>
+    <section class="section-panel">
+      <h2>Integrated Temporal and Non-temporal Disease Network</h2>
+      <p>
+        The 3D disease network combines the adjusted comorbidity structure and temporal ordering of recorded
+        diagnoses following depression in one interactive display. Each of the six analyses can be explored separately.
+      </p>
+      <div class="metric-grid">
+        <div class="metric-card"><strong>6</strong><span>Analysis strata</span></div>
+        <div class="metric-card"><strong>3D</strong><span>Integrated network view</span></div>
+        <div class="metric-card"><strong>2</strong><span>Association dimensions</span></div>
+        <div class="metric-card"><strong>1</strong><span>Index diagnosis</span></div>
+      </div>
+    </section>
+    <section class="three-d-control-grid" aria-label="3D disease-network controls">
+      <div class="settings-card">
+        <h2>Select analysis</h2>
+        <label for="threeDAnalysisSelect">Analysis</label>
+        <select id="threeDAnalysisSelect"></select>
+      </div>
+      <div class="settings-card three-d-guide">
+        <h2>Explore the network</h2>
+        <p>Drag to rotate the network, scroll or pinch to zoom, and hover over a node to identify the medical condition and Phecode.</p>
+        <a id="threeDFullSizeLink" class="button secondary" href="./figures/population_3D.html" target="_blank" rel="noopener">Open full-size figure</a>
+      </div>
+    </section>
+    <section class="plot-card three-d-plot-card">
+      <div class="three-d-status">
+        <span>Showing: <strong id="threeDAnalysisName">Population-based analysis</strong></span>
+        <span>Interactive Plotly 3D network</span>
+      </div>
+      <div class="three-d-frame-wrap">
+        <div id="threeDLoading" class="three-d-loading" role="status">Loading 3D network…</div>
+        <iframe id="threeDFrame" class="three-d-frame" title="Population-based analysis: interactive 3D disease network" loading="eager" allowfullscreen></iframe>
+      </div>
+    </section>
+    <p class="plot-note">The coral diamond marks the depression index diagnosis. Colored disease nodes represent medical conditions grouped by physiological system. The integrated spatial display combines non-temporal comorbidity structure with temporal ordering of recorded diagnoses.</p>
+  </main>
+
+  <footer>
+    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+  </footer>
+
+  <script>window.THREE_D_NETWORK_ANALYSES = [{"id": "population", "name": "Population-based analysis", "file": "./figures/population_3D.html"}, {"id": "population_female", "name": "Population-based analysis (female)", "file": "./figures/female_3D.html"}, {"id": "population_male", "name": "Population-based analysis (male)", "file": "./figures/male_3D.html"}, {"id": "sibling", "name": "Sibling-based analysis", "file": "./figures/sibling_3D.html"}, {"id": "sibling_female", "name": "Sibling-based analysis (female)", "file": "./figures/sister_3D.html"}, {"id": "sibling_male", "name": "Sibling-based analysis (male)", "file": "./figures/brother_3D.html"}];</script>
+  <script src="../../assets/three_d_network_app.js"></script>
+  <script>window.ThreeDNetworkApp.init();</script>
+
+</body>
+</html>

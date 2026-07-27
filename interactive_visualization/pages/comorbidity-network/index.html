@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Adjusted comorbidity associations among subsequent medical conditions following depression." />
+  <title>Interactive Comorbidity Network Explorer</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <span class="eyebrow">Depression disease-network study</span>
+    <h1>Interactive Comorbidity Network Explorer</h1>
+    <p>Adjusted comorbidity associations among subsequent medical conditions following depression.</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Project navigation">
+    <a href="../../index.html">Home</a>
+    <a href="../../pages/phewas/index.html">PheWAS</a>
+    <a href="../../pages/comorbidity-network/index.html" class="active">Comorbidity Network</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/3d-disease-network/index.html">3D Disease Network</a>
+  </nav>
+
+
+  <main>
+    <section class="section-panel">
+      <h2>Comorbidity Network Explorer</h2>
+      <p>
+        Nodes represent medical conditions positively associated with depression in the PheWAS. Edges represent
+        statistically significant positive adjusted comorbidity associations among individuals with depression.
+        Roman module labels reproduce the current analysis-specific figures.
+      </p>
+      <div class="metric-grid">
+        <div class="metric-card"><strong>6</strong><span>Interactive networks</span></div>
+        <div class="metric-card"><strong>156</strong><span>Population-network nodes</span></div>
+        <div class="metric-card"><strong>711</strong><span>Population-network edges</span></div>
+        <div class="metric-card"><strong>10</strong><span>Population-network modules</span></div>
+      </div>
+    </section>
+    <section class="network-control-grid" aria-label="Comorbidity-network controls">
+      <div class="settings-card">
+        <h2>Network selection</h2>
+        <label for="networkSelect">Analysis</label>
+        <select id="networkSelect"></select>
+        <div class="field-row" style="margin-top:12px;">
+          <div><label for="networkSystemFilter">Physiological system</label><select id="networkSystemFilter"></select></div>
+          <div><label for="networkModuleFilter">Comorbidity module</label><select id="networkModuleFilter"></select></div>
+        </div>
+      </div>
+      <div class="settings-card">
+        <h2>Search and labeling</h2>
+        <label for="networkSearch">Search condition or Phecode</label>
+        <input id="networkSearch" type="search" list="networkNodeOptions" placeholder="Example: chronic pain or 338.2" />
+        <datalist id="networkNodeOptions"></datalist>
+        <div class="field-row" style="margin-top:12px;">
+          <div>
+            <label for="networkLabelMode">Labels</label>
+            <select id="networkLabelMode">
+              <option value="selected">Selected and neighbors</option><option value="major">Major nodes</option><option value="all">All visible nodes</option><option value="none">No labels</option>
+            </select>
+          </div>
+          <div><label for="networkNodeScale">Node size <span id="networkNodeScaleValue" class="network-range-value">50%</span></label><input id="networkNodeScale" type="range" min="0.35" max="1.45" step="0.05" value="0.5" /></div>
+        </div>
+      </div>
+      <div class="settings-card">
+        <h2>Edge filtering</h2>
+        <label for="networkEdgeFilter"><span id="networkEdgeFilterLabel">Minimum displayed edge strength</span> <span id="networkEdgeFilterValue" class="network-range-value">0</span></label>
+        <input id="networkEdgeFilter" type="range" />
+        <div class="network-inline"><label for="networkHideIsolated"><input id="networkHideIsolated" type="checkbox" checked /> Hide nodes without visible edges</label><button id="networkResetFilters" type="button" class="secondary">Reset filters</button></div>
+      </div>
+    </section>
+    <section class="status-row" aria-label="Current comorbidity-network summary">
+      <span><strong id="networkName"></strong></span>
+      <span><strong id="networkVisibleNodes">0</strong> visible nodes</span>
+      <span><strong id="networkVisibleEdges">0</strong> visible edges</span>
+      <span><strong id="networkModuleCount">0</strong> modules</span>
+      <span><strong id="networkHiddenIsolated">0</strong> hidden nodes</span>
+      <span>Selected condition: <strong id="networkSelectedNode">None</strong></span>
+    </section>
+    <section class="plot-card">
+      <div class="plot-toolbar" aria-label="Comorbidity-network toolbar">
+        <button id="networkDownloadPng" type="button" title="Download PNG">PNG</button><button id="networkDownloadSvg" type="button" title="Download SVG">SVG</button><button id="networkZoomIn" type="button" title="Zoom in">+</button><button id="networkZoomOut" type="button" title="Zoom out">−</button><button id="networkResetView" type="button" title="Reset view">Reset</button>
+      </div>
+      <div class="network-viewer">
+        <div class="network-canvas-wrap">
+          <svg id="comorbidityNetworkSvg" aria-label="Interactive comorbidity network"><g id="comorbidityNetworkViewport"><g id="comorbidityNetworkEdges"></g><g id="comorbidityNetworkNodes"></g><g id="comorbidityNetworkLabels"></g></g></svg>
+          <div id="comorbidityNetworkTooltip" class="tooltip"></div>
+        </div>
+        <aside class="network-side">
+          <section class="network-panel"><h3>Selected Condition</h3><div id="networkDetails" class="empty-state">No condition selected.</div></section>
+          <section class="network-panel"><h3>Strongest Visible Neighbors</h3><div id="networkNeighbors" class="empty-state">No condition selected.</div></section>
+          <section class="network-panel"><h3>Physiological Systems</h3><div id="networkLegend" class="network-legend"></div></section>
+        </aside>
+      </div>
+    </section>
+    <p class="plot-note">
+      Node size reflects the number of individuals with the condition among those with depression, and node color indicates physiological system. Node sizes are scaled within each analysis and should not be compared across analyses. Edge thickness reflects adjusted comorbidity association strength. Exact adjusted odds ratios are shown in tooltips; the edge-filter scale is capped at 10.
+    </p>
+    <div class="interpretation-callout">
+      The sibling-based PheWAS is a within-family comparison. Its comorbidity networks are reconstructed among depression-diagnosed individuals eligible for the sibling analysis and should not be interpreted as within-family edge estimates.
+    </div>
+  </main>
+
+  <footer>
+    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+  </footer>
+
+  <script src="../../data/comorbidity_networks_data.js"></script>
+  <script src="../../assets/comorbidity_network_app.js"></script>
+  <script>window.ComorbidityNetworkApp.init();</script>
+
+</body>
+</html>
