@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="site-header">
-    <span class="eyebrow">Depression disease-network study</span>
+    <span class="eyebrow">Early-life depression and subsequent multimorbidity</span>
     <h1>Interactive Comorbidity Network Explorer</h1>
     <p>Adjusted comorbidity associations among subsequent medical conditions following depression.</p>
   </header>
@@ -18,7 +18,7 @@
     <a href="../../index.html">Home</a>
     <a href="../../pages/phewas/index.html">PheWAS</a>
     <a href="../../pages/comorbidity-network/index.html" class="active">Comorbidity Network</a>
-    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease trajectories</a>
     <a href="../../pages/3d-disease-network/index.html">3D Disease Network</a>
   </nav>
 
@@ -27,15 +27,21 @@
     <section class="section-panel">
       <h2>Comorbidity Network Explorer</h2>
       <p>
-        Nodes represent medical conditions positively associated with depression in the PheWAS. Edges represent
-        statistically significant positive adjusted comorbidity associations among individuals with depression.
-        Roman module labels reproduce the current analysis-specific figures.
+        Nodes represent medical conditions significantly and positively associated with depression in the corresponding
+        PheWAS. Edges represent significant positive adjusted associations between these conditions among individuals
+        with depression.
+      </p>
+      <p>
+        Comorbidity odds ratios (ORs) were estimated using unconditional logistic regression, adjusted for the study
+        covariates and other conditions associated with depression in the PheWAS. Community detection identified
+        modules with greater within-module connectivity. Module labels are specific to each analysis and do not
+        indicate identical composition across analyses.
       </p>
       <div class="metric-grid">
-        <div class="metric-card"><strong>6</strong><span>Interactive networks</span></div>
-        <div class="metric-card"><strong>156</strong><span>Population-network nodes</span></div>
-        <div class="metric-card"><strong>711</strong><span>Population-network edges</span></div>
-        <div class="metric-card"><strong>10</strong><span>Population-network modules</span></div>
+        <div class="metric-card"><strong>8</strong><span>Interactive networks</span></div>
+        <div class="metric-card"><strong>156</strong><span>Conditions in the overall population network</span></div>
+        <div class="metric-card"><strong>711</strong><span>Associations in the overall population network</span></div>
+        <div class="metric-card"><strong>10</strong><span>Modules in the overall population network</span></div>
       </div>
     </section>
     <section class="network-control-grid" aria-label="Comorbidity-network controls">
@@ -57,15 +63,15 @@
           <div>
             <label for="networkLabelMode">Labels</label>
             <select id="networkLabelMode">
-              <option value="selected">Selected and neighbors</option><option value="major">Major nodes</option><option value="all">All visible nodes</option><option value="none">No labels</option>
+              <option value="selected">Selected condition and directly connected conditions</option><option value="major">Connectivity-based labels</option><option value="all">All visible nodes</option><option value="none">No labels</option>
             </select>
           </div>
-          <div><label for="networkNodeScale">Node size <span id="networkNodeScaleValue" class="network-range-value">50%</span></label><input id="networkNodeScale" type="range" min="0.35" max="1.45" step="0.05" value="0.5" /></div>
+          <div><label for="networkNodeScale">Node-size display scale: <span id="networkNodeScaleValue" class="network-range-value">50%</span></label><input id="networkNodeScale" type="range" min="0.35" max="1.45" step="0.05" value="0.5" /></div>
         </div>
       </div>
       <div class="settings-card">
         <h2>Edge filtering</h2>
-        <label for="networkEdgeFilter"><span id="networkEdgeFilterLabel">Minimum displayed edge strength</span> <span id="networkEdgeFilterValue" class="network-range-value">0</span></label>
+        <label for="networkEdgeFilter"><span id="networkEdgeFilterLabel">Minimum adjusted comorbidity OR — filter scale capped at 10</span> <span id="networkEdgeFilterValue" class="network-range-value">0</span></label>
         <input id="networkEdgeFilter" type="range" />
         <div class="network-inline"><label for="networkHideIsolated"><input id="networkHideIsolated" type="checkbox" checked /> Hide nodes without visible edges</label><button id="networkResetFilters" type="button" class="secondary">Reset filters</button></div>
       </div>
@@ -89,21 +95,27 @@
         </div>
         <aside class="network-side">
           <section class="network-panel"><h3>Selected Condition</h3><div id="networkDetails" class="empty-state">No condition selected.</div></section>
-          <section class="network-panel"><h3>Strongest Visible Neighbors</h3><div id="networkNeighbors" class="empty-state">No condition selected.</div></section>
+          <section class="network-panel"><h3>Conditions with the strongest visible associations</h3><div id="networkNeighbors" class="empty-state">No condition selected.</div></section>
           <section class="network-panel"><h3>Physiological Systems</h3><div id="networkLegend" class="network-legend"></div></section>
         </aside>
       </div>
     </section>
     <p class="plot-note">
-      Node size reflects the number of individuals with the condition among those with depression, and node color indicates physiological system. Node sizes are scaled within each analysis and should not be compared across analyses. Edge thickness reflects adjusted comorbidity association strength. Exact adjusted odds ratios are shown in tooltips; the edge-filter scale is capped at 10.
+      Node size reflects condition frequency among individuals with depression, and node color indicates physiological
+      system. Node sizes are scaled separately within each analysis and should not be compared across analyses. Edge
+      thickness reflects the strength of the adjusted comorbidity association. Tooltips show uncapped adjusted ORs;
+      the edge-filter scale is capped at 10. Network edges represent associations between conditions, not causal
+      relationships or the order in which diagnoses were recorded.
     </p>
     <div class="interpretation-callout">
-      The sibling-based PheWAS is a within-family comparison. Its comorbidity networks are reconstructed among depression-diagnosed individuals eligible for the sibling analysis and should not be interpreted as within-family edge estimates.
+      The sibling-based PheWAS uses within-family comparisons. Its comorbidity networks are constructed among
+      individuals with depression in the sibling-matched cohort. Condition–condition associations are not within-family
+      estimates and may still be affected by familial confounding.
     </div>
   </main>
 
   <footer>
-    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+    Interactive results from a Swedish register-based study of psychiatric and somatic conditions following a first recorded specialist diagnosis of depression at ages 10–40 years.
   </footer>
 
   <script src="../../data/comorbidity_networks_data.js"></script>

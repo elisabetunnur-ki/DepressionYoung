@@ -180,7 +180,7 @@
     edgeFilter.max = String(maxEdge > minEdge ? maxEdge : minEdge + step);
     edgeFilter.step = String(step);
     edgeFilter.value = String(state.minEdge);
-    byId("networkEdgeFilterLabel").textContent = current.edge_strength_label || "Minimum edge strength";
+    byId("networkEdgeFilterLabel").textContent = current.edge_strength_label || "Minimum adjusted comorbidity OR — filter scale capped at 10";
     byId("networkEdgeFilterValue").textContent = fmt(state.minEdge, sliderDigits());
 
     byId("networkNodeScale").value = String(state.nodeScale);
@@ -406,11 +406,11 @@
       <dl class="network-kv">
         <dt>Physiological system</dt><dd>${escapeHtml(node.disease_system_display || "Unclassified")}</dd>
         <dt>Module</dt><dd>${escapeHtml(node.module_label || "Unassigned")}</dd>
-        <dt>Individuals with condition</dt><dd>${escapeHtml(fmtInt(node.cases))}</dd>
+        <dt>Individuals with this recorded condition (depression group)</dt><dd>${escapeHtml(fmtInt(node.cases))}</dd>
         ${phewasBlock}
         ${consensusBlock}
         <dt>Degree</dt><dd>${escapeHtml(fmtInt(node.degree))}</dd>
-        <dt>Weighted degree (capped)</dt><dd>${escapeHtml(fmt(node.weighted_degree, 2))}</dd>
+        <dt>Weighted degree: sum of connected-edge ORs, each capped at 10</dt><dd>${escapeHtml(fmt(node.weighted_degree, 2))}</dd>
       </dl>`;
 
     const rows = (adjacency.get(node.id) || [])
@@ -463,10 +463,10 @@
       <strong>${escapeHtml(displayName(node))}</strong>
       <div>Physiological system: ${escapeHtml(node.disease_system_display || "Unclassified")}</div>
       <div>Module: ${escapeHtml(node.module_label || "Unassigned")}</div>
-      <div>Individuals with condition: ${escapeHtml(fmtInt(node.cases))}</div>
+      <div>Individuals with this recorded condition (depression group): ${escapeHtml(fmtInt(node.cases))}</div>
       ${phewasLine}
       ${zLine}
-      <div>Degree: ${escapeHtml(fmtInt(node.degree))}; weighted degree: ${escapeHtml(fmt(node.weighted_degree, 2))}</div>`;
+      <div>Degree: ${escapeHtml(fmtInt(node.degree))}; weighted degree (sum of connected-edge ORs, each capped at 10): ${escapeHtml(fmt(node.weighted_degree, 2))}</div>`;
     tooltip.style.display = "block";
     moveTooltip(event);
   }
@@ -489,7 +489,7 @@
         <div>Adjusted comorbidity OR: ${escapeHtml(fmtHR(edge.or || edge.hr))}</div>
         <div>95% CI: ${escapeHtml(fmtHR(edge.ci_lower))}-${escapeHtml(fmtHR(edge.ci_upper))}</div>
         <div>p-value: ${escapeHtml(fmtP(edge.p_value))}; q-value: ${escapeHtml(fmtP(edge.q_value))}</div>
-        <div>Individuals in edge model: ${escapeHtml(fmtInt(edge.n_total))}</div>`;
+        <div>Individuals included in this pairwise model: ${escapeHtml(fmtInt(edge.n_total))}</div>`;
     }
     tooltip.style.display = "block";
     moveTooltip(event);

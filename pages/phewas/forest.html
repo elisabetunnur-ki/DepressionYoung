@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Comparison of selected medical conditions across population- and sibling-based analyses." />
+  <meta name="description" content="Comparison of adjusted hazard ratios for selected medical conditions across population- and sibling-based analyses." />
   <title>Interactive PheWAS Forest Plot</title>
   <link rel="stylesheet" href="../../assets/style.css" />
 </head>
 <body>
   <header class="site-header">
-    <span class="eyebrow">Depression disease-network study</span>
+    <span class="eyebrow">Early-life depression and subsequent multimorbidity</span>
     <h1>Interactive PheWAS Forest Plot</h1>
-    <p>Comparison of selected medical conditions across population- and sibling-based analyses.</p>
+    <p>Comparison of adjusted hazard ratios for selected medical conditions across population- and sibling-based analyses.</p>
   </header>
 
   <nav class="site-nav" aria-label="Project navigation">
     <a href="../../index.html">Home</a>
     <a href="../../pages/phewas/index.html" class="active">PheWAS</a>
     <a href="../../pages/comorbidity-network/index.html">Comorbidity Network</a>
-    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease trajectories</a>
     <a href="../../pages/3d-disease-network/index.html">3D Disease Network</a>
   </nav>
 
@@ -61,7 +61,7 @@
       <span><strong id="diseaseCount">0</strong> conditions selected</span>
       <span><strong id="cancerCount">0</strong> analyses selected</span>
       <span>Maximum selected conditions: <strong>20</strong></span>
-      <span>Scale: <strong>log HR, 0.7 to 30</strong></span>
+      <span><strong>Hazard ratio, logarithmic scale: 0.7–30</strong></span>
     </section>
     <section class="plot-card">
       <div class="plot-toolbar" aria-label="Forest plot toolbar">
@@ -75,12 +75,16 @@
       <div id="tooltip" class="tooltip"></div>
     </section>
     <p class="plot-note">
-      Arrows indicate HR estimates or 95% confidence intervals extending beyond the displayed range. Marker opacity indicates whether the estimate is a statistically significant positive association under the manuscript definition.
+      Arrows indicate HR estimates or 95% confidence intervals extending beyond the displayed range. Darker markers
+      identify statistically significant positive associations (HR &gt; 1 and q-value &lt; 0.05). Lighter markers do not
+      meet the combined criterion of HR &gt; 1 and q-value &lt; 0.05. Estimate availability differs across analyses. An
+      unavailable estimate should not be interpreted as no association; conditions may differ in eligibility because
+      of the prevalence criterion or sex specificity.
     </p>
   </main>
 
   <footer>
-    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+    Interactive results from a Swedish register-based study of psychiatric and somatic conditions following a first recorded specialist diagnosis of depression at ages 10–40 years.
   </footer>
 
   <script src="../../data/phewas_data.js"></script>

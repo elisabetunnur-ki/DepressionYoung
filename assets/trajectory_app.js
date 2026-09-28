@@ -97,7 +97,7 @@
     const select = byId("trajectoryModuleSelect");
     select.innerHTML = "";
     (currentAnalysis.modules || []).forEach((module) => {
-      select.append(new Option(module.label + " (" + module.stats.edge_count + " temporal pairs)", String(module.display_number)));
+      select.append(new Option(module.label + " (" + module.stats.edge_count + " temporal associations)", String(module.display_number)));
     });
     const requested = Number(requestedModule);
     const selected = (currentAnalysis.modules || []).find((module) => module.display_number === requested) || currentAnalysis.modules[0];
@@ -295,7 +295,7 @@
     const visible = rows.filter((item) => edgeIds.has(item.edge.id)).sort((a, b) => Number(b.edge.or) - Number(a.edge.or));
     if (!visible.length) {
       container.className = "empty-state";
-      container.textContent = "No visible conditions.";
+      container.textContent = "No connected conditions meet the current filter.";
       return;
     }
     container.className = "direction-list";
@@ -328,9 +328,9 @@
       '<div class="network-selected-code">Phecode ' + escapeHtml(node.phecode) + '</div>' +
       '<dl class="network-kv"><dt>Physiological system</dt><dd>' + escapeHtml(node.disease_system_display) + '</dd>' +
       '<dt>Module</dt><dd>' + escapeHtml(node.module_label) + '</dd>' +
-      '<dt>Individuals with condition</dt><dd>' + escapeHtml(fmtInt(node.cases)) + '</dd>' +
-      '<dt>Earlier-recorded links</dt><dd>' + escapeHtml(fmtInt(node.in_degree)) + '</dd>' +
-      '<dt>Later-recorded links</dt><dd>' + escapeHtml(fmtInt(node.out_degree)) + '</dd></dl>';
+      '<dt>Individuals with this recorded condition (depression group)</dt><dd>' + escapeHtml(fmtInt(node.cases)) + '</dd>' +
+      '<dt>Incoming temporal associations — full module</dt><dd>' + escapeHtml(fmtInt(node.in_degree)) + '</dd>' +
+      '<dt>Outgoing temporal associations — full module</dt><dd>' + escapeHtml(fmtInt(node.out_degree)) + '</dd></dl>';
     listDirection(earlier, incoming.get(node.id) || [], edgeIds);
     listDirection(later, outgoing.get(node.id) || [], edgeIds);
   }
@@ -352,7 +352,7 @@
     tooltip.innerHTML = '<strong>' + escapeHtml(displayName(node)) + '</strong>' +
       '<div>Physiological system: ' + escapeHtml(node.disease_system_display) + '</div>' +
       '<div>' + escapeHtml(node.module_label) + '</div>' +
-      '<div>Individuals with condition: ' + escapeHtml(fmtInt(node.cases)) + '</div>';
+      '<div>Individuals with this recorded condition (depression group): ' + escapeHtml(fmtInt(node.cases)) + '</div>';
     tooltip.style.display = "block";
     moveTooltip(event);
   }
@@ -362,10 +362,10 @@
     const target = nodeById.get(edge.target);
     tooltip.innerHTML = '<strong>Earlier recorded → later recorded</strong>' +
       '<div>' + escapeHtml(displayName(source)) + '</div><div>→ ' + escapeHtml(displayName(target)) + '</div>' +
-      '<div>Adjusted temporal-ordering OR: ' + escapeHtml(fmtEffect(edge.or)) + '</div>' +
+      '<div>Adjusted OR, temporal association: ' + escapeHtml(fmtEffect(edge.or)) + '</div>' +
       '<div>95% CI: ' + escapeHtml(fmtEffect(edge.ci_lower)) + '–' + escapeHtml(fmtEffect(edge.ci_upper)) + '</div>' +
       '<div>p-value: ' + escapeHtml(fmtP(edge.p_value)) + '; q-value: ' + escapeHtml(fmtP(edge.q_value)) + '</div>' +
-      '<div>Recorded order counts: ' + escapeHtml(fmtInt(edge.earlier_later_count)) + ' forward, ' + escapeHtml(fmtInt(edge.reverse_count)) + ' reverse</div>';
+      '<div>Recorded-order counts: ' + escapeHtml(displayName(source)) + ' before ' + escapeHtml(displayName(target)) + ', n = ' + escapeHtml(fmtInt(edge.earlier_later_count)) + '; ' + escapeHtml(displayName(target)) + ' before ' + escapeHtml(displayName(source)) + ', n = ' + escapeHtml(fmtInt(edge.reverse_count)) + '.</div>';
     tooltip.style.display = "block";
     moveTooltip(event);
   }

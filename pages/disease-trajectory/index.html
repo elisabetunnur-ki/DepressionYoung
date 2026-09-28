@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="site-header">
-    <span class="eyebrow">Depression disease-network study</span>
+    <span class="eyebrow">Early-life depression and subsequent multimorbidity</span>
     <h1>Interactive Disease Trajectory Explorer</h1>
     <p>Within-module temporal ordering of recorded diagnoses following depression.</p>
   </header>
@@ -18,7 +18,7 @@
     <a href="../../index.html">Home</a>
     <a href="../../pages/phewas/index.html">PheWAS</a>
     <a href="../../pages/comorbidity-network/index.html">Comorbidity Network</a>
-    <a href="../../pages/disease-trajectory/index.html" class="active">Disease Trajectory</a>
+    <a href="../../pages/disease-trajectory/index.html" class="active">Disease trajectories</a>
     <a href="../../pages/3d-disease-network/index.html">3D Disease Network</a>
   </nav>
 
@@ -27,14 +27,15 @@
     <section class="section-panel">
       <h2>Within-module Temporal Ordering of Recorded Diagnoses</h2>
       <p>
-        Directed edges connect pairs of conditions assigned to the same comorbidity module when their recorded
-        diagnoses showed statistically significant temporal ordering and occurred at least 30 days apart.
+        Directed edges represent significant positive temporal associations between conditions in the same comorbidity
+        module, identified using adjusted conditional logistic regression. The analysis considered recorded diagnoses
+        at least 30 days apart.
       </p>
       <div class="metric-grid">
-        <div class="metric-card"><strong>6</strong><span>Analysis strata</span></div>
-        <div class="metric-card"><strong>7</strong><span>Population modules with temporal ordering</span></div>
-        <div class="metric-card"><strong>101</strong><span>Population trajectory nodes</span></div>
-        <div class="metric-card"><strong>157</strong><span>Population within-module temporal pairs</span></div>
+        <div class="metric-card"><strong>8</strong><span>Analyses: overall, sex-stratified, and diagnosis-age-stratified</span></div>
+        <div class="metric-card"><strong>7</strong><span>Modules with temporal associations — overall population analysis</span></div>
+        <div class="metric-card"><strong>101</strong><span>Conditions in temporal networks — overall population analysis</span></div>
+        <div class="metric-card"><strong>157</strong><span>Within-module temporal associations — overall population analysis</span></div>
       </div>
     </section>
     <section class="network-control-grid" aria-label="Disease-trajectory controls">
@@ -47,20 +48,20 @@
         <h2>Search and labeling</h2>
         <label for="trajectorySearch">Search condition or Phecode</label><input id="trajectorySearch" type="search" list="trajectoryNodeOptions" placeholder="Example: anxiety or 300.1" /><datalist id="trajectoryNodeOptions"></datalist>
         <label for="trajectoryLabelMode" style="margin-top:12px;">Labels</label>
-        <select id="trajectoryLabelMode"><option value="all">All visible nodes</option><option value="major">Major nodes</option><option value="selected">Selected and connected</option><option value="none">No labels</option></select>
+        <select id="trajectoryLabelMode"><option value="all">All visible nodes</option><option value="major">Connectivity-based labels</option><option value="selected">Selected condition and directly connected conditions</option><option value="none">No labels</option></select>
       </div>
       <div class="settings-card">
         <h2>Display settings</h2>
-        <label for="trajectoryEdgeFilter">Minimum temporal-ordering OR (capped at 10) <span id="trajectoryEdgeFilterValue" class="network-range-value">1</span></label><input id="trajectoryEdgeFilter" type="range" />
-        <label for="trajectoryNodeScale" style="margin-top:12px;">Node size <span id="trajectoryNodeScaleValue" class="network-range-value">100%</span></label><input id="trajectoryNodeScale" type="range" min="0.45" max="1.6" step="0.05" value="1" />
+        <label for="trajectoryEdgeFilter">Minimum adjusted OR, temporal association — filter scale capped at 10 <span id="trajectoryEdgeFilterValue" class="network-range-value">1</span></label><input id="trajectoryEdgeFilter" type="range" />
+        <label for="trajectoryNodeScale" style="margin-top:12px;">Node-size display scale: <span id="trajectoryNodeScaleValue" class="network-range-value">100%</span></label><input id="trajectoryNodeScale" type="range" min="0.45" max="1.6" step="0.05" value="1" />
         <button id="trajectoryResetFilters" type="button" class="secondary" style="margin-top:12px;">Reset settings</button>
       </div>
     </section>
     <section class="status-row" aria-label="Current temporal-ordering summary">
-      <span><strong id="trajectoryAnalysisName"></strong></span><span><strong id="trajectoryModuleName"></strong></span><span><strong id="trajectoryVisibleNodes">0</strong> visible nodes</span><span><strong id="trajectoryVisibleEdges">0</strong> visible temporal pairs</span><span>Selected condition: <strong id="trajectorySelectedNode">None</strong></span>
+      <span><strong id="trajectoryAnalysisName"></strong></span><span><strong id="trajectoryModuleName"></strong></span><span><strong id="trajectoryVisibleNodes">0</strong> visible nodes</span><span><strong id="trajectoryVisibleEdges">0</strong> visible temporal associations</span><span>Selected condition: <strong id="trajectorySelectedNode">None</strong></span>
     </section>
     <section class="plot-card">
-      <div class="plot-toolbar" aria-label="Disease-trajectory toolbar"><button id="trajectoryDownloadPng" type="button">PNG</button><button id="trajectoryDownloadSvg" type="button">SVG</button><button id="trajectoryZoomIn" type="button">+</button><button id="trajectoryZoomOut" type="button">−</button><button id="trajectoryResetView" type="button">Reset</button></div>
+      <div class="plot-toolbar" aria-label="Disease-trajectory toolbar"><button id="trajectoryDownloadPng" type="button" title="Download PNG" aria-label="Download PNG">PNG</button><button id="trajectoryDownloadSvg" type="button" title="Download SVG" aria-label="Download SVG">SVG</button><button id="trajectoryZoomIn" type="button" title="Zoom in" aria-label="Zoom in">+</button><button id="trajectoryZoomOut" type="button" title="Zoom out" aria-label="Zoom out">−</button><button id="trajectoryResetView" type="button" title="Reset view" aria-label="Reset view">Reset</button></div>
       <div class="network-viewer">
         <div class="network-canvas-wrap">
           <svg id="trajectoryNetworkSvg" aria-label="Interactive within-module temporal ordering">
@@ -71,18 +72,26 @@
         </div>
         <aside class="network-side">
           <section class="network-panel"><h3>Selected Condition</h3><div id="trajectoryDetails" class="empty-state">No condition selected.</div></section>
-          <section class="network-panel"><h3>Earlier-recorded Conditions</h3><div id="trajectoryEarlier" class="empty-state">No condition selected.</div></section>
-          <section class="network-panel"><h3>Later-recorded Conditions</h3><div id="trajectoryLater" class="empty-state">No condition selected.</div></section>
+          <section class="network-panel"><h3>Conditions recorded before the selected condition</h3><div id="trajectoryEarlier" class="empty-state">No condition selected.</div></section>
+          <section class="network-panel"><h3>Conditions recorded after the selected condition</h3><div id="trajectoryLater" class="empty-state">No condition selected.</div></section>
           <section class="network-panel"><h3>Physiological Systems</h3><div id="trajectoryLegend" class="network-legend"></div></section>
         </aside>
       </div>
     </section>
-    <p class="plot-note">Arrows point from the earlier-recorded condition to the later-recorded condition. Node size reflects the number of individuals with the condition and is scaled within the selected module; node color indicates physiological system. Edge tooltips report adjusted temporal-ordering odds ratios and observed forward and reverse order counts.</p>
-    <div class="interpretation-callout">Arrows indicate the observed temporal ordering of recorded diagnoses, not causal disease progression. All displayed conditions occurred after depression by study design. Sibling-based trajectories are reconstructed among depression-diagnosed individuals eligible for the sibling analysis and should not be interpreted as within-family edge estimates.</div>
+    <p class="plot-note">Arrows point from the earlier-recorded diagnosis to the later-recorded diagnosis. Node size
+      reflects the number of individuals with depression who had the condition recorded and is scaled within the
+      selected module; node color indicates physiological system. Node sizes should not be compared across modules or
+      analyses. Edge tooltips report adjusted temporal-association ORs and counts for each recorded diagnostic order.
+      The diagram combines pairwise temporal associations across the study cohort; it does not depict a single observed
+      sequence shared by all individuals. Horizontal spacing is schematic and does not represent elapsed time.</p>
+    <div class="interpretation-callout">Arrows summarize the observed ordering of recorded diagnoses and do not
+      establish causal disease progression. A 6-month lag was applied after the index date. Temporal associations in
+      the sibling-matched cohort were estimated among individuals with depression; they are not within-family estimates
+      and may still be affected by familial confounding.</div>
   </main>
 
   <footer>
-    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+    Interactive results from a Swedish register-based study of psychiatric and somatic conditions following a first recorded specialist diagnosis of depression at ages 10–40 years.
   </footer>
 
   <script src="../../data/trajectory_data.js"></script>

@@ -71,7 +71,7 @@
     if (value == null || !Number.isFinite(Number(value))) {
       return "NA";
     }
-    return Number(value).toFixed(2) + " per 1,000 person-years";
+    return Number(value).toFixed(2);
   }
 
   function hexToRgba(hex, alpha) {
@@ -103,8 +103,8 @@
       "HR: " + formatHR(row.hr_original) + " (" + formatCI(row) + ")",
       "p-value: " + formatP(row.p_value),
       "q-value: " + formatP(row.q_value),
-      "Incidence rate, individuals with depression: " + formatRate(row.incidence_rate_depression),
-      "Incidence rate, " + escapeHtml(row.comparison_label || "comparison group") + ": " + formatRate(row.incidence_rate_comparison)
+      "Incidence rate per 1,000 person-years, individuals with depression: " + formatRate(row.incidence_rate_depression),
+      "Incidence rate per 1,000 person-years, " + escapeHtml(row.comparison_label || "comparison group") + ": " + formatRate(row.incidence_rate_comparison)
     ].join("<br>");
   }
 
@@ -112,6 +112,8 @@
     return String(name || "")
       .replace("Population-based analysis (female)", "Population, female")
       .replace("Population-based analysis (male)", "Population, male")
+      .replace("Population-based analysis (diagnosis age <25 years)", "Population, age <25 years")
+      .replace("Population-based analysis (diagnosis age ≥25 years)", "Population, age ≥25 years")
       .replace("Population-based analysis", "Population-based")
       .replace("Sibling-based analysis (female)", "Sibling, female")
       .replace("Sibling-based analysis (male)", "Sibling, male")
@@ -325,8 +327,8 @@
             "HR: %{customdata[4]} (%{customdata[5]})",
             "p-value: %{customdata[6]}",
             "q-value: %{customdata[7]}",
-            "Incidence rate, individuals with depression: %{customdata[8]}",
-            "Incidence rate, %{customdata[10]}: %{customdata[9]}<extra></extra>"
+            "Incidence rate per 1,000 person-years, individuals with depression: %{customdata[8]}",
+            "Incidence rate per 1,000 person-years, %{customdata[10]}: %{customdata[9]}<extra></extra>"
           ].join("<br>"),
           marker: {
             color: groupRows.map((row) => hexToRgba(row.system_color, row.significant ? 0.92 : 0.34)),
@@ -377,7 +379,7 @@
         height: 740,
         margin: { l: 72, r: 210, t: 92, b: 150 },
         title: {
-          text: "Medical conditions following depression: " + cancer.name,
+          text: "Associations between early-life depression and subsequent medical conditions: " + cancer.name,
           x: 0.02,
           xanchor: "left",
           font: { size: 18, color: "#24282d" }
@@ -420,7 +422,7 @@
           y: 1.05,
           showarrow: false,
           align: "left",
-          text: "Triangle up = HR > 1; triangle down = HR < 1. Darker points indicate statistically significant positive associations (HR > 1 and q < 0.05). Search terms label matching Phecodes without filtering the plot.",
+          text: "Upward-pointing triangles indicate HR > 1; downward-pointing triangles indicate HR < 1. Darker markers identify statistically significant positive associations (HR > 1 and q < 0.05). Search terms label matching conditions without filtering the results.",
           font: { size: 12, color: "#667085" }
         }]
       };
@@ -913,7 +915,7 @@
         y: axisY + 12,
         class: "muted-label",
         "text-anchor": "end"
-      }, "Log HR scale: 0.7 to 30"));
+      }, "Hazard ratio, logarithmic scale: 0.7–30"));
 
       selectedCancers.forEach((id, index) => {
         const cancer = CANCERS.find((item) => item.id === id);

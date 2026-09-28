@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="site-header">
-    <span class="eyebrow">Depression disease-network study</span>
+    <span class="eyebrow">Early-life depression and subsequent multimorbidity</span>
     <h1>Interactive PheWAS Scatter Plot</h1>
     <p>Analysis-specific associations with subsequent medical conditions, grouped by physiological system and ordered by Phecode.</p>
   </header>
@@ -18,7 +18,7 @@
     <a href="../../index.html">Home</a>
     <a href="../../pages/phewas/index.html" class="active">PheWAS</a>
     <a href="../../pages/comorbidity-network/index.html">Comorbidity Network</a>
-    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease trajectories</a>
     <a href="../../pages/3d-disease-network/index.html">3D Disease Network</a>
   </nav>
 
@@ -41,9 +41,9 @@
     <section class="summary-row" aria-label="Current scatter summary">
       <span><strong id="cancerName"></strong></span>
       <span><strong id="retainedCount">0</strong> available HR estimates</span>
-      <span><strong id="significantCount">0</strong> positive associations with q &lt; 0.05</span>
-      <span><strong id="visibleCount">0</strong> displayed after system filter</span>
-      <span><strong id="highlightedCount">0</strong> highlighted by search</span>
+      <span><strong id="significantCount">0</strong> significant positive associations (HR &gt; 1; q &lt; 0.05)</span>
+      <span><strong id="visibleCount">0</strong> estimates shown after physiological-system filtering</span>
+      <span><strong id="highlightedCount">0</strong> conditions matched by search</span>
     </section>
     <section class="plot-card">
       <div class="plot-toolbar" aria-label="Scatter plot toolbar">
@@ -58,12 +58,13 @@
     <p class="plot-note">
       HRs greater than 30 are capped at 30 for plotting, while uncapped estimates remain in tooltips and data files.
       Darker markers denote statistically significant positive associations (HR &gt; 1 and q-value &lt; 0.05).
+      Lighter markers do not meet the combined criterion of HR &gt; 1 and q-value &lt; 0.05.
       Search terms highlight matching conditions without removing other results.
     </p>
   </main>
 
   <footer>
-    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+    Interactive results from a Swedish register-based study of psychiatric and somatic conditions following a first recorded specialist diagnosis of depression at ages 10–40 years.
   </footer>
 
   <script src="../../assets/plotly.min.js"></script>

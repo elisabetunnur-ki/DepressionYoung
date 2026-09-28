@@ -1,6 +1,6 @@
 # Interactive Depression Disease-Network Visualization
 
-This directory is a fully static interactive site generated from `current_manuscript/results_20260622` and the six DiNetxify exports in `3D_figures`. It can be opened locally from `index.html` or published as a static website without a server-side application.
+This directory is a fully static interactive site generated from `current_manuscript/results_20260622` and 8 supplied DiNetxify exports. It can be opened locally from `index.html` or published as a static website without a server-side application.
 
 ## Sections
 
@@ -10,7 +10,7 @@ This directory is a fully static interactive site generated from `current_manusc
 - `pages/comorbidity-network/index.html`: interactive comorbidity-network explorer.
 - `pages/disease-trajectory/index.html`: interactive within-module temporal-ordering explorer.
 - `pages/3d-disease-network/index.html`: analysis-selectable integrated 3D disease-network explorer.
-- `pages/3d-disease-network/figures/`: six self-contained DiNetxify/Plotly network exports copied into the static site.
+- `pages/3d-disease-network/figures/`: 8 self-contained DiNetxify/Plotly network exports copied into the static site.
 - `data/`: cleaned CSV/JSON files and JavaScript-wrapped payloads for direct `file://` use.
 - `assets/`: local CSS, JavaScript, and Plotly assets.
 
@@ -21,17 +21,19 @@ All four modules include:
 1. Population-based analysis
 2. Population-based analysis (female)
 3. Population-based analysis (male)
-4. Sibling-based analysis
-5. Sibling-based analysis (female)
-6. Sibling-based analysis (male)
+4. Population-based analysis (diagnosis age <25 years)
+5. Population-based analysis (diagnosis age ≥25 years)
+6. Sibling-based analysis
+7. Sibling-based analysis (female)
+8. Sibling-based analysis (male)
 
 ## Statistical display rules
 
 - PheWAS displays rows with finite coefficient and standard-error estimates. Markers are highlighted as manuscript-positive results only when `phewas_coef > 0`, the saved FDR significance flag is true, and `phewas_p_adjusted < 0.05`.
 - Comorbidity networks use positive statistically significant adjusted associations (`comorbidity_beta > 0`). Exact adjusted odds ratios are read from `comorbidity_result.csv`; values are capped at 10 only for edge filtering and layout.
 - Disease trajectories use statistically significant positive temporal-ordering results and retain only pairs whose endpoints share the same cluster in `figures/cluster.csv`. Endpoints are not additionally required to appear in the positive-edge GEXF, preserving qualifying trajectory-only cluster members.
-- The 3D disease-network section embeds the six supplied DiNetxify HTML exports. During site generation, the depression origin is restyled from a large black circle to a smaller coral diamond with a white outline. The source exports in `3D_figures` are not modified.
-- Raw cluster identifiers are mapped to the Roman module labels used in the current figures.
+- The 3D disease-network section embeds the 8 supplied DiNetxify HTML exports. The generator first looks in `3D_figures` and then in each analysis folder under `current_manuscript/results_20260622`. During site generation, the depression origin is restyled from a large black circle to a smaller coral diamond with a white outline. The source exports are not modified.
+- Roman module labels are analysis-specific. Diagnosis-age-stratified analyses use sequential labels derived from their raw cluster identifiers.
 
 ## Regeneration
 
@@ -44,7 +46,7 @@ python current_manuscript/generate_depression_visualization_site.py \
   --out-dir current_manuscript/interactive_visualization
 ```
 
-The generator rewrites generated HTML, CSS, JavaScript, cleaned data files, and site copies of the six 3D figures. It does not modify the source result files or source 3D exports.
+The generator rewrites generated HTML, CSS, JavaScript, cleaned data files, and site copies of the 8 3D figures. It does not modify the source result files or source 3D exports.
 
 ## Interpretation
 

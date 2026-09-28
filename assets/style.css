@@ -1046,6 +1046,16 @@ footer {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.study-context {
+  max-width: 780px;
+  margin: -14px auto 26px;
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
 .analysis-badge {
   padding: 6px 10px;
   color: #5f6978;

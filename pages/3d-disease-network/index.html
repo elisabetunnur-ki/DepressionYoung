@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="site-header">
-    <span class="eyebrow">Depression disease-network study</span>
+    <span class="eyebrow">Early-life depression and subsequent multimorbidity</span>
     <h1>Interactive 3D Disease Network Explorer</h1>
     <p>Integrated visualization of temporal and non-temporal associations following depression.</p>
   </header>
@@ -18,7 +18,7 @@
     <a href="../../index.html">Home</a>
     <a href="../../pages/phewas/index.html">PheWAS</a>
     <a href="../../pages/comorbidity-network/index.html">Comorbidity Network</a>
-    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease trajectories</a>
     <a href="../../pages/3d-disease-network/index.html" class="active">3D Disease Network</a>
   </nav>
 
@@ -27,13 +27,13 @@
     <section class="section-panel">
       <h2>Integrated Temporal and Non-temporal Disease Network</h2>
       <p>
-        The 3D disease network combines the adjusted comorbidity structure and temporal ordering of recorded
-        diagnoses following depression in one interactive display. Each of the six analyses can be explored separately.
+        The integrated 3D display combines adjusted comorbidity associations with the temporal ordering of recorded
+        diagnoses following early-life depression. Select an analysis to view its network.
       </p>
       <div class="metric-grid">
-        <div class="metric-card"><strong>6</strong><span>Analysis strata</span></div>
+        <div class="metric-card"><strong>8</strong><span>Analyses: overall, sex-stratified, and diagnosis-age-stratified</span></div>
         <div class="metric-card"><strong>3D</strong><span>Integrated network view</span></div>
-        <div class="metric-card"><strong>2</strong><span>Association dimensions</span></div>
+        <div class="metric-card"><strong>2</strong><span>Association types: temporal and non-temporal</span></div>
         <div class="metric-card"><strong>1</strong><span>Index diagnosis</span></div>
       </div>
     </section>
@@ -52,21 +52,26 @@
     <section class="plot-card three-d-plot-card">
       <div class="three-d-status">
         <span>Showing: <strong id="threeDAnalysisName">Population-based analysis</strong></span>
-        <span>Interactive Plotly 3D network</span>
+        <span>Integrated 3D disease network</span>
       </div>
       <div class="three-d-frame-wrap">
         <div id="threeDLoading" class="three-d-loading" role="status">Loading 3D network…</div>
         <iframe id="threeDFrame" class="three-d-frame" title="Population-based analysis: interactive 3D disease network" loading="eager" allowfullscreen></iframe>
       </div>
     </section>
-    <p class="plot-note">The coral diamond marks the depression index diagnosis. Colored disease nodes represent medical conditions grouped by physiological system. The integrated spatial display combines non-temporal comorbidity structure with temporal ordering of recorded diagnoses.</p>
+    <p class="plot-note">The coral diamond denotes the first recorded specialist diagnosis of depression. Colored
+      nodes represent subsequently recorded medical conditions; colors identify physiological systems. The integrated
+      spatial display combines non-temporal comorbidity structure with temporal ordering of recorded diagnoses.</p>
+    <div class="interpretation-callout">Temporal ordering refers to recorded diagnoses, not disease onset or causal
+      progression. Networks for the sibling-matched cohort are constructed among individuals with depression and do
+      not represent within-family estimates of condition–condition associations; familial confounding may remain.</div>
   </main>
 
   <footer>
-    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+    Interactive results from a Swedish register-based study of psychiatric and somatic conditions following a first recorded specialist diagnosis of depression at ages 10–40 years.
   </footer>
 
-  <script>window.THREE_D_NETWORK_ANALYSES = [{"id": "population", "name": "Population-based analysis", "file": "./figures/population_3D.html"}, {"id": "population_female", "name": "Population-based analysis (female)", "file": "./figures/female_3D.html"}, {"id": "population_male", "name": "Population-based analysis (male)", "file": "./figures/male_3D.html"}, {"id": "sibling", "name": "Sibling-based analysis", "file": "./figures/sibling_3D.html"}, {"id": "sibling_female", "name": "Sibling-based analysis (female)", "file": "./figures/sister_3D.html"}, {"id": "sibling_male", "name": "Sibling-based analysis (male)", "file": "./figures/brother_3D.html"}];</script>
+  <script>window.THREE_D_NETWORK_ANALYSES = [{"id": "population", "name": "Population-based analysis", "file": "./figures/population_3D.html"}, {"id": "population_female", "name": "Population-based analysis (female)", "file": "./figures/female_3D.html"}, {"id": "population_male", "name": "Population-based analysis (male)", "file": "./figures/male_3D.html"}, {"id": "population_young", "name": "Population-based analysis (diagnosis age <25 years)", "file": "./figures/young_3D.html"}, {"id": "population_old", "name": "Population-based analysis (diagnosis age ≥25 years)", "file": "./figures/old_3D.html"}, {"id": "sibling", "name": "Sibling-based analysis", "file": "./figures/sibling_3D.html"}, {"id": "sibling_female", "name": "Sibling-based analysis (female)", "file": "./figures/sister_3D.html"}, {"id": "sibling_male", "name": "Sibling-based analysis (male)", "file": "./figures/brother_3D.html"}];</script>
   <script src="../../assets/three_d_network_app.js"></script>
   <script>window.ThreeDNetworkApp.init();</script>
 

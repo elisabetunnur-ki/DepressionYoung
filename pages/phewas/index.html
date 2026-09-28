@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hazard ratios for subsequent medical conditions following depression diagnosed at ages 10 to 40 years." />
+  <meta name="description" content="Adjusted hazard ratios for associations between early-life depression and subsequent medical conditions." />
   <title>Interactive PheWAS Results</title>
   <link rel="stylesheet" href="../../assets/style.css" />
 </head>
 <body>
   <header class="site-header">
-    <span class="eyebrow">Depression disease-network study</span>
+    <span class="eyebrow">Early-life depression and subsequent multimorbidity</span>
     <h1>Interactive PheWAS Results</h1>
-    <p>Hazard ratios for subsequent medical conditions following depression diagnosed at ages 10 to 40 years.</p>
+    <p>Adjusted hazard ratios for associations between early-life depression and subsequent medical conditions.</p>
   </header>
 
   <nav class="site-nav" aria-label="Project navigation">
     <a href="../../index.html">Home</a>
     <a href="../../pages/phewas/index.html" class="active">PheWAS</a>
     <a href="../../pages/comorbidity-network/index.html">Comorbidity Network</a>
-    <a href="../../pages/disease-trajectory/index.html">Disease Trajectory</a>
+    <a href="../../pages/disease-trajectory/index.html">Disease trajectories</a>
     <a href="../../pages/3d-disease-network/index.html">3D Disease Network</a>
   </nav>
 
@@ -27,15 +27,33 @@
     <section class="section-panel">
       <h2>Phenome-wide Association Study Results</h2>
       <p>
-        Cox regression was used to estimate associations between a prior depression diagnosis and subsequent
-        medical conditions. Statistical highlighting follows the manuscript definition of a positive association
-        with HR &gt; 1 and FDR-adjusted q-value &lt; 0.05.
+        Cox regression was used to estimate hazard ratios (HRs) for associations between early-life depression and
+        subsequent medical conditions. Highlighted results are statistically significant positive associations
+        (HR &gt; 1 and q-value &lt; 0.05), where the q-value is the false discovery rate–adjusted p-value.
+      </p>
+      <p>
+        Participants with prespecified pre-existing psychiatric or serious somatic conditions were excluded, and a
+        6-month lag was applied after the index date. PheWAS analyses included conditions recorded in more than 0.5%
+        of individuals with depression in the corresponding analysis. Diagnoses were grouped into clinically related Phecodes.
+      </p>
+      <p>
+        In the population-based analyses, Cox models were conditioned on the matching variables and adjusted for birth
+        region and parental education and income during childhood. In the sibling-based analyses,
+        models were conditioned on sibship and adjusted for sex when applicable, age at the index date, and birth order.
+      </p>
+      <p>
+        Diagnosis-age-stratified population analyses are shown for depression diagnosed before age 25 years and at
+        ages 25–40 years. These labels refer to age at the first recorded specialist depression diagnosis, not disease onset.
+      </p>
+      <p>
+        The interactive plots allow all available HR estimates to be viewed. The manuscript PheWAS figures show only
+        conditions meeting the predefined significance criterion.
       </p>
       <div class="metric-grid">
-        <div class="metric-card"><strong>6</strong><span>Analysis strata</span></div>
-        <div class="metric-card"><strong>1,085</strong><span>Displayed HR estimates</span></div>
-        <div class="metric-card"><strong>91–187</strong><span>Positive associations per analysis</span></div>
-        <div class="metric-card"><strong>0.05</strong><span>FDR q-value threshold</span></div>
+        <div class="metric-card"><strong>8</strong><span>Analyses: overall, sex-stratified, and diagnosis-age-stratified</span></div>
+        <div class="metric-card"><strong>1,467</strong><span>Available HR estimates across analyses</span></div>
+        <div class="metric-card"><strong>91–191</strong><span>Significant positive associations per analysis</span></div>
+        <div class="metric-card"><strong>q-value &lt; 0.05</strong><span>Significance criterion</span></div>
       </div>
     </section>
     <section class="card-grid" aria-label="PheWAS visualizations">
@@ -51,12 +69,14 @@
       </article>
     </section>
     <div class="interpretation-callout">
-      Population-based analyses compare individuals with depression with matched unexposed individuals. Sibling-based PheWAS analyses compare individuals with depression with unaffected full siblings.
+      Population-based PheWAS compares individuals with depression with population comparators matched on sex and
+      birth year who had no recorded depression diagnosis at the index date. Sibling-based PheWAS uses full siblings
+      without recorded depression at that date.
     </div>
   </main>
 
   <footer>
-    Interactive visualizations of Swedish register-based analyses of medical conditions following depression diagnosed at ages 10 to 40 years.
+    Interactive results from a Swedish register-based study of psychiatric and somatic conditions following a first recorded specialist diagnosis of depression at ages 10–40 years.
   </footer>
 
 </body>
