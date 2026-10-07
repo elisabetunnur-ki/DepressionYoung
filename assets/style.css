@@ -1037,6 +1037,10 @@ footer {
   }
 }
 
+.network-label {
+  font-size: 10px;
+}
+
 .analysis-badges {
   display: flex;
   justify-content: center;

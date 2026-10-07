@@ -627,7 +627,7 @@
       .network-edge.dimmed{stroke-opacity:.04}.network-edge.highlight{stroke:#111827;stroke-opacity:.76}
       .network-node{stroke:#fff;stroke-width:1.35;vector-effect:non-scaling-stroke}
       .network-node.dimmed{opacity:.16}.network-node.highlight{stroke:#111827;stroke-width:2.4}
-      .network-label{display:none;fill:#263341;stroke:#fff;stroke-width:2.2px;paint-order:stroke;font:700 12px Arial;text-anchor:middle}
+      .network-label{display:none;fill:#263341;stroke:#fff;stroke-width:2.2px;paint-order:stroke;font:700 10px Arial;text-anchor:middle}
       .network-label.visible{display:block}`;
     clone.insertBefore(style, clone.firstChild);
     return new XMLSerializer().serializeToString(clone);
